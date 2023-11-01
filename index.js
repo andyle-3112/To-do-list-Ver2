@@ -46,7 +46,7 @@ const workItemSchema = {
 }
 const workItem = mongoose.model('workItem', workItemSchema);
 
-
+/*
 // insert instruction to items
 
 
@@ -87,7 +87,7 @@ const workItem1 = new workItem ({
   //insert documents to collection
   
   await workItem.insertMany(defaultWorkItems);
-
+*/
 
 //post route for adding new task
 app.post('/addtask', async (req, res) => {
