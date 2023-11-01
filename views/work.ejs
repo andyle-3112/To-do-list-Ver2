@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" type="image/x-icon" href="/icons/favicon.ico">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DO-IT</title>
+    <link rel="stylesheet" href="/styles/work.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button onclick="topFunction()" id="goToTopBtn" title="Go to top"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-arrow-bar-up" viewBox="0 0 16 16">
+        <path fill-rule="evenodd" d="M8 10a.5.5 0 0 0 .5-.5V3.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 3.707V9.5a.5.5 0 0 0 .5.5zm-7 2.5a.5.5 0 0 1 .5-.5h13a.5.5 0 0 1 0 1h-13a.5.5 0 0 1-.5-.5z"/>
+      </svg></button>    
+<!-- nav bar-->    
+
+<header>
+    <div class="navbar" id="myNavbar">
+        <a href="/">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-sticky" viewBox="0 0 16 16">
+            <path d="M2.5 1A1.5 1.5 0 0 0 1 2.5v11A1.5 1.5 0 0 0 2.5 15h6.086a1.5 1.5 0 0 0 1.06-.44l4.915-4.914A1.5 1.5 0 0 0 15 8.586V2.5A1.5 1.5 0 0 0 13.5 1h-11zM2 2.5a.5.5 0 0 1 .5-.5h11a.5.5 0 0 1 .5.5V8H9.5A1.5 1.5 0 0 0 8 9.5V14H2.5a.5.5 0 0 1-.5-.5v-11zm7 11.293V9.5a.5.5 0 0 1 .5-.5h4.293L9 13.793z"/>
+          </svg>  Today</a>
+        <a class="active" href="/work"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-briefcase" viewBox="0 0 16 16">
+          <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 7.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z"/>
+        </svg>  Work </a>
+        <% const month = ["January","February","March","April","May","June","July","August","September","October","November","December"]; %>
+        <% const weekday = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"]; %>
+        <div class="date"> <%= weekday[new Date().getDay()] %> <%= new Date().getDate() %>  <%= month[new Date().getMonth()] %> <%= new Date().getFullYear() %> </div>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16">
+            <path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3zm5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3z"/>
+          </svg>
+        </a>
+      </div>
+      <script>
+        function myFunction() {
+    var x = document.getElementById("myNavbar");
+    if (x.className === "navbar") {
+      x.className += " responsive";
+    } else {
+      x.className = "navbar";
+    }
+  }
+      </script>
+</header>
+
+    
+
+<main>     
+    
+
+<!-- click to start new notes -->
+
+
+<div class="main-column">
+  <p class="today" id="today" >Let's Create Some To-dos!</p>
+  <form id="myForm" onsubmit="return validateForm()" action="/addWorkTask" method="POST" >
+      <div class="note-row">
+          
+              <input type="text" name="newWorkItem" placeholder="     ...what's on your plan?" class="input" id="input">
+              <button draggable="true" formaction="/addWorkTask" type="submit" class="submit-button" id="submit-button" >Add</button>
+          
+      </div>
+    </form>
+
+
+      <p class="today">Added To-dos <span class="number-of-tasks"> <%= workTask.length %> tasks </span></p>
+
+      <div class="note-column" >
+      
+          <% for( var i = 0; i < workTask.length; i++){ %>  
+              <div class="note-row">
+              <label class="checkbox">
+                <form action="/deleteWork" method="POST">  
+                  <input type="checkbox"  name="checkbox" value="<%=workTask[i]._id%>" onchange="this.form.submit()" />
+                  <span class="checkmark"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-check2" viewBox="0 0 16 16">
+                      <path d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                    </svg>
+                    <p><%= workTask[i].name %></p></span>    
+                  </label>
+                   
+              </div>  
+      
+          <% } %>
+      </div>
+      
+      
+      
+  
+  </form>
+        <footer>
+          <% const currentDay = new Date(); %>
+          <% const currentYear = currentDay.getFullYear(); %>
+          <!-- Step 4 - Add a dynamic year to the footer using JS. -->
+          <p>Copyright © <%= `${currentYear}` %> </p>
+        </footer> 
+  
+    </div>
+  
+    
+    
+
+
+
+
+</main>
+<script>
+  //go to top button
+let mybutton = document.getElementById("goToTopBtn");
+
+window.onscroll = function() {scrollFunction()};
+
+
+
+function scrollFunction() {
+  if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+    mybutton.style.display = "block";
+  } else {
+    mybutton.style.display = "none";
+  }
+}
+function topFunction() {
+  document.body.scrollTop = 0;
+  document.documentElement.scrollTop = 0;
+}
+
+function validateForm() {
+  var x = document.forms["myForm"]["input"].value;
+
+  if (x == "" || x == null) {
+    alert("Please fill in your task!");
+    return false;
+  }
+}
+    
+</script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+
+<div class="main-column">
+    <p class="today" id="today">Let's Create Some To-dos!</p>
+    <form id="myForm" onsubmit="return validateForm()" action="/addtask" method="POST" >
+        <div class="note-row">
+            
+                <input type="text"  name="newItem" placeholder="     ...what's on your plan?" class="input" id="input">
+                 
+                <button draggable="true" formaction="/addtask" type="submit" class="submit-button" id="submit-button" >Add</button>
+            </button> 
+             
+        </div>
+    </form>
+    <script>
+        function validateForm() {
+  var x = document.forms["myForm"]["input"].value;
+
+  if (x == "" || x == null) {
+    alert("Please fill in your task!");
+    return false;
+  }
+}
+   
+    </script>
+
+
+    <%- include("notes.ejs") %>
+    <footer>
+        <% const currentDay = new Date(); %>
+        <% const currentYear = currentDay.getFullYear(); %>
+        <!-- Step 4 - Add a dynamic year to the footer using JS. -->
+        <p>Copyright © <%= `${currentYear}` %> </p>
+      </footer>
+</div>    
+
+
+
+
+
